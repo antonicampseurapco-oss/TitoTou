@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Ruta del TitoTou · Zúrich </title>
+<style>
+/* Quick Look / no-JS fallback: interactive widgets hidden until JS adds .js-on */
+.js-only { display: none !important; }
+html.js-on .js-only { display: block !important; }
+/* Mobile side panel: only meaningful with JS */
+@media (max-width: 900px) { html.js-on aside.side .js-only { display: block !important; } }
+/* Static cofre cards: always visible on every viewport (Quick Look + desktop) */
+.locuciones-movil { display: block !important; }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0d1426;
+  --bg-mid: #1a2444;
+  --panel: #1f2a52;
+  --panel-light: #2c3970;
+  --gold: #f5c542;
+  --gold-light: #ffe066;
+  --gold-dark: #b8902a;
+  --ruby: #d52b1e;
+  --ruby-dark: #8b1a12;
+  --emerald: #2dd47a;
+  --emerald-dark: #1a8a4f;
+  --sapphire: #4ea0ff;
+  --parchment: #f3e7c4;
+  --parchment-dark: #c9b481;
+  --ink: #f4f1e0;
+  --shadow: rgba(0,0,0,0.55);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'VT323', 'Courier New', monospace;
+  background: radial-gradient(ellipse at center, #1a2444 0%, #0a0f1f 100%);
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #fff8c0 1px, transparent 2px),
+    radial-gradient(1px 1px at 60px 80px, #fff 1px, transparent 2px),
+    radial-gradient(1.5px 1.5px at 130px 50px, #f5c542 1px, transparent 2px),
+    radial-gradient(1px 1px at 200px 110px, #fff 1px, transparent 2px),
+    radial-gradient(2px 2px at 280px 160px, #fff8c0 1px, transparent 2px),
+    radial-gradient(1px 1px at 340px 70px, #fff 1px, transparent 2px),
+    radial-gradient(1.5px 1.5px at 420px 200px, #f5c542 1px, transparent 2px),
+    radial-gradient(1px 1px at 500px 130px, #fff 1px, transparent 2px);
+  background-size: 540px 260px;
+  background-repeat: repeat;
+  opacity: 0.35;
+  z-index: -1;
+  animation: twinkle 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0%,100% { opacity: 0.35; }
+  50% { opacity: 0.55; }
+}
+.pixel-font { font-family: 'Press Start 2P', 'VT323', monospace; }
+
+header.hud {
+  background: linear-gradient(180deg, #2c3970 0%, #1a2444 100%);
+  border-bottom: 4px solid var(--gold);
+  padding: 14px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+  box-shadow: 0 4px 0 var(--bg-dark), 0 6px 14px rgba(0,0,0,0.5);
+  position: relative;
+}
+header.hud::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: -8px; height: 4px;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 16px);
+}
+header.hud h1 {
+  margin: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.95rem;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 #000, 0 0 14px rgba(245,197,66,0.4);
+  letter-spacing: 1px;
+}
+header.hud .sub {
+  font-size: 1rem;
+  color: var(--ink);
+  opacity: 0.85;
+  margin-top: 6px;
+  font-family: 'VT323', monospace;
+}
+header.hud .hud-chip {
+  font-family: 'Press Start 2P', monospace;
+  background: var(--bg-dark);
+  color: var(--gold);
+  border: 3px solid var(--gold);
+  padding: 8px 14px;
+  font-size: 0.62rem;
+  box-shadow: 0 0 0 2px #000, inset 0 0 8px rgba(245,197,66,0.2);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  min-height: calc(100vh - 100px);
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  aside.side { max-height: none !important; border-left: none !important; border-top: 3px solid var(--gold); }
+  header.hud h1 { font-size: 0.7rem; }
+  header.hud .hud-chip { font-size: 0.5rem; }
+  svg.map { max-height: none; }
+  .chest { transform: scale(1.35); transform-origin: center; transform-box: fill-box; }
+  .chest:hover { transform: scale(1.45) translateY(-2px); }
+}
+
+.map-wrap {
+  position: relative;
+  background: #0a0f1f;
+  overflow: hidden;
+  border-right: 3px solid var(--gold);
+  padding: 6px;
+}
+svg.map {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 2px #000, 0 0 24px rgba(245,197,66,0.25) inset;
+  background: #0a1024;
+}
+
+.chest {
+  cursor: pointer;
+  filter: drop-shadow(0 3px 0 rgba(0,0,0,0.6));
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+.chest:hover { transform: translateY(-3px) scale(1.06); filter: drop-shadow(0 0 12px rgba(245,197,66,0.85)) drop-shadow(0 3px 0 rgba(0,0,0,0.6)); }
+.chest .body { fill: #8a4a1a; stroke: #2a1408; stroke-width: 2; }
+.chest .lid { fill: #a85d22; stroke: #2a1408; stroke-width: 2; transition: transform 0.25s ease; transform-origin: center; transform-box: fill-box; }
+.chest .band { fill: var(--gold); stroke: #5a3a08; stroke-width: 1; }
+.chest .lock { fill: var(--gold); stroke: #5a3a08; stroke-width: 1.5; }
+.chest .num { fill: #2a1408; font-family: 'Press Start 2P', monospace; font-weight: 700; font-size: 11px; pointer-events: none; }
+.chest .glow { opacity: 0; transition: opacity 0.3s ease; }
+.chest.active .lid { transform: rotate(-22deg) translateY(-4px); }
+.chest.active .glow { opacity: 0.85; }
+.chest.active .body { fill: #b86a2a; }
+.chest.active { filter: drop-shadow(0 0 14px rgba(245,197,66,1)) drop-shadow(0 3px 0 rgba(0,0,0,0.6)); }
+.chest.visited .lid { transform: rotate(-28deg) translateY(-5px); }
+.chest.visited .body { fill: #5a3a18; }
+.chest.visited .num { opacity: 0.55; }
+.chest.visited .glow { opacity: 0.4; }
+
+aside.side {
+  background: linear-gradient(180deg, #1a2444 0%, #0d1426 100%);
+  border-left: 3px solid var(--gold);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+aside.side::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: repeating-linear-gradient(180deg, var(--gold) 0 10px, transparent 10px 20px);
+  pointer-events: none;
+}
+
+.progress {
+  padding: 12px 16px;
+  background: var(--bg-mid);
+  border-bottom: 3px solid var(--gold);
+  font-size: 1rem;
+  position: relative;
+}
+.progress .label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.62rem;
+  color: var(--gold);
+  text-shadow: 1px 1px 0 #000;
+  display: block;
+  margin-bottom: 8px;
+}
+.progress .bar {
+  height: 14px;
+  background: #000;
+  border: 2px solid var(--gold);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.7);
+}
+.progress .bar-fill {
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--emerald) 0 6px, var(--gold) 6px 12px);
+  width: 0%;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 8px rgba(45,212,122,0.6);
+}
+
+.stop-list {
+  list-style: none; margin: 0; padding: 0;
+  overflow-y: auto; flex: 1;
+}
+.stop-list li {
+  padding: 11px 14px;
+  border-bottom: 2px dashed #2c3970;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+  display: flex; gap: 12px; align-items: flex-start;
+  position: relative;
+}
+.stop-list li:hover { background: rgba(245,197,66,0.08); transform: translateX(3px); }
+.stop-list li.active {
+  background: linear-gradient(90deg, rgba(245,197,66,0.25) 0%, transparent 100%);
+  border-left: 4px solid var(--gold);
+  padding-left: 10px;
+}
+.stop-list li.visited { opacity: 0.7; }
+.stop-list li.visited .stop-name { text-decoration: line-through; text-decoration-color: var(--emerald); }
+.badge {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  box-shadow: 0 0 0 2px #000, 0 0 8px rgba(245,197,66,0.3);
+}
+.stop-list li.active .badge {
+  background: var(--gold); color: #000;
+  box-shadow: 0 0 0 2px #000, 0 0 12px rgba(245,197,66,0.9);
+}
+.stop-info { flex: 1; min-width: 0; }
+.stop-name { font-weight: 700; color: var(--gold); font-size: 1.05rem; text-shadow: 1px 1px 0 #000; }
+.stop-sub { font-size: 0.9rem; color: var(--parchment); opacity: 0.85; margin-top: 2px; font-style: italic; }
+.stop-meta {
+  font-size: 0.78rem;
+  color: var(--emerald);
+  margin-top: 4px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+}
+
+.controls {
+  padding: 12px 14px;
+  background: var(--bg-mid);
+  border-top: 3px solid var(--gold);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.controls button {
+  flex: 1; min-width: 100px;
+  padding: 10px 8px;
+  border: 2px solid var(--gold);
+  border-radius: 0;
+  background: var(--bg-dark);
+  color: var(--gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 var(--gold-dark), 0 5px 8px rgba(0,0,0,0.4);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  letter-spacing: 0.5px;
+}
+.controls button:hover { background: var(--panel-light); }
+.controls button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--gold-dark); }
+
+.modal-back {
+  position: fixed; inset: 0;
+  background: rgba(5,8,20,0.78);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 20px; z-index: 100;
+  animation: fadeIn 0.25s ease;
+}
+.modal-back.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.modal {
+  background:
+    linear-gradient(180deg, #2a1a0a 0%, #1a0e04 100%);
+  border: 4px solid var(--gold);
+  border-radius: 0;
+  max-width: 640px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow:
+    0 0 0 3px #000,
+    0 0 24px rgba(245,197,66,0.4),
+    0 24px 50px rgba(0,0,0,0.7);
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+.modal::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 16px);
+}
+.modal::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 16px);
+}
+
+.modal-head {
+  padding: 16px 20px;
+  background:
+    linear-gradient(180deg, var(--ruby-dark) 0%, #5a0a08 100%);
+  color: var(--gold);
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 3px solid var(--gold);
+  position: relative;
+}
+.modal-head .badge-big {
+  background: var(--gold);
+  color: #000;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 3px solid #000;
+  box-shadow: 0 0 0 2px var(--gold-dark), 0 4px 0 rgba(0,0,0,0.4);
+}
+.modal-head .title-wrap { flex: 1; }
+.modal-head h2 {
+  margin: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.95rem;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 0.5px;
+}
+.modal-head .subtitle {
+  font-family: 'VT323', monospace;
+  font-size: 1.05rem;
+  color: #ffd98a;
+  margin-top: 4px;
+  font-style: italic;
+}
+.modal-close {
+  background: #000;
+  border: 2px solid var(--gold);
+  width: 34px; height: 34px;
+  color: var(--gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 2px #000;
+  transition: transform 0.1s ease;
+}
+.modal-close:hover { background: var(--ruby-dark); transform: scale(1.05); }
+
+.modal-body {
+  padding: 18px 22px;
+  background:
+    radial-gradient(ellipse at top, rgba(245,197,66,0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #2a1a0a 0%, #1a0e04 100%);
+}
+.modal-body p.lead {
+  margin: 0 0 14px 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--parchment);
+  background: rgba(0,0,0,0.3);
+  padding: 12px 14px;
+  border-left: 4px solid var(--gold);
+  border-right: 4px solid var(--gold);
+  font-family: 'VT323', monospace;
+}
+
+.facts-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  text-shadow: 1px 1px 0 #000;
+  margin: 18px 0 10px 0;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid var(--gold);
+  display: inline-block;
+}
+.facts { margin: 0; padding-left: 0; list-style: none; }
+.facts li {
+  padding: 10px 12px 10px 36px;
+  margin-bottom: 8px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--gold-dark);
+  border-left: 4px solid var(--emerald);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--parchment);
+  font-family: 'VT323', monospace;
+  position: relative;
+}
+.facts li::before {
+  content: '◆';
+  position: absolute;
+  left: 12px; top: 10px;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.facts li::after {
+  content: '';
+  position: absolute;
+  left: 22px; top: 13px; width: 8px; height: 8px;
+  background: var(--emerald);
+  box-shadow: 0 0 6px var(--emerald);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.tts-controls {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 0 14px 0;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(42,26,10,0.98) 0%, rgba(26,14,4,0.98) 100%);
+  border: 2px solid var(--gold);
+  display: flex; gap: 8px; flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+.tts-controls button {
+  padding: 9px 12px;
+  border: 2px solid var(--gold);
+  border-radius: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  cursor: pointer;
+  background: var(--bg-dark);
+  color: var(--gold);
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 var(--gold-dark);
+  transition: transform 0.1s ease;
+  letter-spacing: 0.5px;
+}
+.tts-controls button:hover { background: var(--panel-light); }
+.tts-controls button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--gold-dark); }
+.tts-controls .btn-play { background: var(--emerald-dark); color: #fff; border-color: var(--emerald); box-shadow: 0 3px 0 #0e5e35; }
+.tts-controls .btn-pause { background: var(--ruby-dark); color: #fff; border-color: var(--ruby); box-shadow: 0 3px 0 #5a0a08; }
+.tts-controls .status {
+  font-size: 0.85rem;
+  color: var(--parchment);
+  margin-left: auto;
+  font-family: 'VT323', monospace;
+  font-style: italic;
+}
+.tts-controls .status.speaking { color: var(--emerald); font-weight: 700; text-shadow: 0 0 6px var(--emerald); }
+
+.nav-modal {
+  margin-top: 16px;
+  display: flex; justify-content: space-between; gap: 8px;
+}
+.nav-modal button {
+  flex: 1; padding: 11px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  cursor: pointer;
+  background: var(--bg-dark);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  text-transform: uppercase;
+  box-shadow: 0 3px 0 var(--gold-dark);
+  letter-spacing: 0.5px;
+  transition: transform 0.1s ease;
+}
+.nav-modal button:hover { background: var(--panel-light); }
+.nav-modal button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--gold-dark); }
+.nav-modal button:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: 0 3px 0 var(--bg-mid); }
+
+.route-summary {
+  padding: 10px 16px;
+  background: var(--bg-mid);
+  border-top: 3px solid var(--gold);
+  font-size: 0.78rem;
+  color: var(--parchment);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+}
+.route-summary strong { color: var(--gold); }
+
+footer.bottom {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.85rem;
+  color: var(--gold);
+  background: var(--bg-dark);
+  border-top: 3px solid var(--gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.92);
+  border: 3px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 22px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  box-shadow: 0 0 0 2px #000, 0 0 20px rgba(245,197,66,0.6);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+@media (max-width: 600px) {
+  .modal-head h2 { font-size: 0.75rem; }
+  .modal-head .badge-big { width: 40px; height: 40px; font-size: 0.7rem; }
+  .controls button, .nav-modal button, .tts-controls button { font-size: 0.45rem; padding: 8px 6px; }
+}
+
+/* === GOOGLE MAPS BUTTONS & LINKS === */
+.gmaps-route-btn {
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(180deg, #2dd47a 0%, #1a8a4f 100%);
+  color: #062018;
+  border: 3px solid #062018;
+  padding: 8px 14px;
+  font-size: 0.62rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 0 2px var(--gold), inset 0 0 8px rgba(255,255,255,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.gmaps-route-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #062018, 0 0 0 2px var(--gold), 0 0 14px rgba(45,212,122,0.6);
+  background: linear-gradient(180deg, #3ee089 0%, #1f9a57 100%);
+}
+.gmaps-route-btn:active { transform: translateY(0); }
+.gmaps-route-btn .pin { font-size: 1.1rem; line-height: 1; }
+header.hud .gmaps-route-btn { font-size: 0.6rem; }
+
+.stop-list li .gmaps-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  margin-left: auto;
+  border: 2px solid var(--gold);
+  background: linear-gradient(180deg, #2dd47a 0%, #1a8a4f 100%);
+  color: #062018;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 0 #062018;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+.stop-list li .gmaps-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #062018, 0 0 8px rgba(45,212,122,0.6);
+}
+.stop-list li { position: relative; }
+.stop-list li .gmaps-icon-wrap { display:flex; align-items:center; margin-left:auto; }
+
+.modal-gmaps {
+  margin-top: 10px;
+  margin-bottom: 4px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.modal-gmaps a {
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(180deg, #2dd47a 0%, #1a8a4f 100%);
+  color: #062018;
+  border: 2px solid #062018;
+  padding: 7px 10px;
+  font-size: 0.55rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 0 2px var(--gold), 0 2px 0 #062018;
+  transition: transform 0.15s ease;
+  letter-spacing: 0.5px;
+}
+.modal-gmaps a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--gold), 0 4px 0 #062018, 0 0 10px rgba(45,212,122,0.6);
+}
+.modal-gmaps a:active { transform: translateY(0); }
+.modal-gmaps .icon { font-size: 1rem; line-height: 1; }
+
+</style>
+<script>document.documentElement.classList.add('js-on');</script>
+</head>
+<body>
+<noscript><div style="background:#000;color:#f5c542;padding:12px 16px;text-align:center;font-family:monospace;border:2px solid #f5c542;margin:10px;font-size:0.95rem;line-height:1.4;">Sin JavaScript el mapa y los botones interactivos no funcionan, pero los 10 cofres con descripción completa y locución escrita están disponibles abajo. Ábrelos en Safari/Chrome del móvil para la experiencia completa.</div></noscript>
+
+<header class="hud">
+  <div>
+    <h1>★ LA RUTA DEL TITOTOU ★</h1>
+    <div class="sub">Aventura por el centro de Zúrich · 10 cofres · audio narrado</div>
+  </div>
+  <a class="gmaps-route-btn" id="gmaps-route-btn" href="https://www.google.com/maps/dir/?api=1&origin=Hauptbahnhof+Z%C3%BCrich&destination=St.+Peter+Z%C3%BCrich&waypoints=Bahnhofstrasse+Z%C3%BCrich%7COpernhaus+Z%C3%BCrich%7CParadeplatz+Z%C3%BCrich%7CFraum%C3%BCnster+Z%C3%BCrich%7CM%C3%BCnsterbr%C3%BCcke+Z%C3%BCrich%7CGrossm%C3%BCnster+Z%C3%BCrich%7CLindenhof+Z%C3%BCrich%7CRathaus+Neumarkt+Z%C3%BCrich&travelmode=walking" target="_blank" rel="noopener noreferrer" title="Abrir la ruta completa en Google Maps"><span class="pin">📍</span><span>RUTA EN GOOGLE MAPS</span></a>
+  <div class="hud-chip" id="route-info">NIVEL 1 · 10 COFRES</div>
+</header>
+<div class="layout">
+  <div class="map-wrap">
+    <svg class="map" viewBox="0 0 900 640" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa aventura del centro de Zúrich con cofres del tesoro">
+<defs>
+    <linearGradient id="lakeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3a6db0"/>
+      <stop offset="100%" stop-color="#1a3a72"/>
+    </linearGradient>
+    <linearGradient id="riverGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a82c2"/>
+      <stop offset="100%" stop-color="#1f4d8a"/>
+    </linearGradient>
+    <pattern id="bgPat" patternUnits="userSpaceOnUse" width="36" height="36">
+      <rect width="36" height="36" fill="#0a1024"/>
+      <rect x="0" y="0" width="2" height="2" fill="#1a2854"/>
+      <rect x="18" y="18" width="2" height="2" fill="#1a2854"/>
+      <rect x="6" y="24" width="1" height="1" fill="#2a3870"/>
+      <rect x="28" y="8" width="1" height="1" fill="#2a3870"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    </defs>
+<rect width="900" height="640" fill="url(#bgPat)"/>
+
+<g id="lake">
+      <path d="M 880 620 C 740 600, 640 530, 560 550
+               C 460 575, 400 610, 380 640 L 900 0 L 900 640 Z"
+            fill="url(#lakeGrad)" opacity="0.85"/>
+      <path d="M 880 620 C 740 600, 640 530, 560 550
+               C 460 575, 400 610, 380 640"
+            fill="none" stroke="#4ea0ff" stroke-width="1.5" opacity="0.6"/>
+      <text x="770" y="590" fill="#9cd0ff" font-family="Press Start 2P, monospace" font-size="11" font-weight="700"
+            transform="rotate(-14 770 590)">LAGO</text>
+    </g>
+<g id="limmat">
+      <path d="M 100 70 C 220 160, 200 250, 300 280 C 380 305, 420 320, 520 350
+               C 600 380, 640 410, 680 440 C 740 490, 770 560, 800 640"
+            fill="none" stroke="url(#riverGrad)" stroke-width="22" stroke-linecap="round"
+            stroke-linejoin="round" opacity="0.9"/>
+      <path d="M 100 70 C 220 160, 200 250, 300 280 C 380 305, 420 320, 520 350
+               C 600 380, 640 410, 680 440 C 740 490, 770 560, 800 640"
+            fill="none" stroke="#4ea0ff" stroke-width="1" opacity="0.5"/>
+      <text x="170" y="155" fill="#9cd0ff" font-family="Press Start 2P, monospace" font-size="9" font-weight="700"
+            transform="rotate(38 170 155)">LIMMAT</text>
+    </g>
+
+<g id="streets" stroke="#2c3970" fill="none" stroke-linecap="round">
+<path d="M 240 540 C 270 510, 295 495, 320 480 C 350 455, 380 430, 400 415 C 430 395, 460 380, 470 370" stroke-width="5" opacity="0.7"/>
+<path d="M 470 370 C 500 360, 520 340, 540 305" stroke-width="5" opacity="0.7"/>
+<path d="M 555 340 C 580 320, 620 295, 645 270" stroke-width="5" opacity="0.7"/>
+<path d="M 555 340 C 580 342, 600 343, 620 345" stroke-width="5" opacity="0.7"/>
+<path d="M 540 305 C 510 320, 470 345, 435 360" stroke-width="5" opacity="0.7"/>
+<path d="M 435 360 C 540 390, 640 415, 720 430" stroke-width="5" opacity="0.7"/>
+</g>
+
+<g id="buildings" fill="#1a2854" stroke="#3a4d80" stroke-width="0.8" opacity="0.9">
+<rect x="300" y="230" width="38" height="28" rx="0"/>
+<rect x="348" y="235" width="32" height="24" rx="0"/>
+<rect x="388" y="228" width="30" height="30" rx="0"/>
+<rect x="200" y="420" width="28" height="26" rx="0"/>
+<rect x="240" y="430" width="26" height="24" rx="0"/>
+<rect x="288" y="425" width="30" height="28" rx="0"/>
+<rect x="340" y="425" width="26" height="22" rx="0"/>
+<rect x="392" y="432" width="24" height="20" rx="0"/>
+<rect x="190" y="460" width="30" height="26" rx="0"/>
+<rect x="260" y="458" width="28" height="24" rx="0"/>
+<rect x="320" y="462" width="26" height="22" rx="0"/>
+<rect x="380" y="460" width="28" height="24" rx="0"/>
+<rect x="170" y="495" width="30" height="26" rx="0"/>
+<rect x="250" y="498" width="26" height="22" rx="0"/>
+<rect x="320" y="500" width="26" height="20" rx="0"/>
+<rect x="220" y="240" width="24" height="22" rx="0"/>
+<rect x="270" y="245" width="24" height="18" rx="0"/>
+<rect x="320" y="248" width="22" height="16" rx="0"/>
+<rect x="388" y="252" width="22" height="18" rx="0"/>
+<rect x="430" y="250" width="24" height="20" rx="0"/>
+<rect x="485" y="408" width="22" height="18" rx="0"/>
+<rect x="510" y="405" width="20" height="16" rx="0"/>
+<rect x="455" y="415" width="18" height="14" rx="0"/>
+<rect x="575" y="365" width="18" height="14" rx="0"/>
+<rect x="600" y="370" width="16" height="12" rx="0"/>
+<rect x="560" y="380" width="16" height="12" rx="0"/>
+<rect x="665" y="310" width="22" height="18" rx="0"/>
+<rect x="688" y="305" width="20" height="16" rx="0"/>
+<rect x="700" y="320" width="18" height="14" rx="0"/>
+</g>
+
+<g id="neighborhoods" font-family="Press Start 2P, monospace" fill="#5e7ec4" font-weight="700">
+      <text x="280" y="215" font-size="9" opacity="0.9">LINDENHOF</text>
+      <text x="170" y="380" font-size="10" opacity="0.95">ALTSTADT</text>
+      <text x="280" y="555" font-size="8" opacity="0.9">BAHNHOF</text>
+      <text x="335" y="445" font-size="8" opacity="0.9">PARADEPLATZ</text>
+      <text x="495" y="395" font-size="7" opacity="0.85">FRAUMÜNSTER</text>
+      <text x="640" y="380" font-size="7" opacity="0.85">GROSSMÜNSTER</text>
+      <text x="455" y="345" font-size="7" opacity="0.85">ST. PETER</text>
+      <text x="565" y="295" font-size="7" opacity="0.85">RATHAUS</text>
+      <text x="320" y="465" font-size="7" opacity="0.85">BAHNHOFSTR.</text>
+    </g>
+
+<path id="routePath" d="M 240 540 L 320 480 L 720 430 L 400 415 L 470 370 L 555 340 L 620 345 L 645 270 L 540 305 L 435 360"
+      fill="none"
+      stroke="#f5c542"
+      stroke-width="3.5"
+      stroke-dasharray="9 6"
+      stroke-linecap="round"
+      opacity="0.85"
+      filter="url(#glow)"/>
+
+<g id="chests">
+<g class="chest" data-id="1" transform="translate(240,540)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">01</text>
+        </g>
+<g class="chest" data-id="2" transform="translate(320,480)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">02</text>
+        </g>
+<g class="chest" data-id="3" transform="translate(720,430)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">03</text>
+        </g>
+<g class="chest" data-id="4" transform="translate(400,415)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">04</text>
+        </g>
+<g class="chest" data-id="5" transform="translate(470,370)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">05</text>
+        </g>
+<g class="chest" data-id="6" transform="translate(555,340)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">06</text>
+        </g>
+<g class="chest" data-id="7" transform="translate(620,345)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">07</text>
+        </g>
+<g class="chest" data-id="8" transform="translate(645,270)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">08</text>
+        </g>
+<g class="chest" data-id="9" transform="translate(540,305)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">09</text>
+        </g>
+<g class="chest" data-id="10" transform="translate(435,360)">
+          <circle class="glow" cx="0" cy="0" r="32" fill="#f5c542" opacity="0.4"/>
+          <rect class="body" x="-22" y="-2" width="44" height="26"/>
+          <rect class="lid" x="-24" y="-22" width="48" height="22" rx="2"/>
+          <rect class="band" x="-22" y="-4" width="44" height="3"/>
+          <rect class="band" x="-22" y="10" width="44" height="3"/>
+          <rect class="lock" x="-6" y="-6" width="12" height="14" rx="2"/>
+          <circle cx="0" cy="0" r="2" fill="#5a3a08"/>
+          <text class="num" x="0" y="-11" text-anchor="middle" dominant-baseline="central">10</text>
+        </g>
+</g>
+
+<g id="compass" transform="translate(58,58)">
+      <circle r="22" fill="#1a2444" stroke="#f5c542" stroke-width="2" opacity="0.95"/>
+      <polygon points="0,-16 5,4 0,-2 -5,4" fill="#d52b1e"/>
+      <polygon points="0,-2 5,4 0,16 -5,4" fill="#f5c542"/>
+      <text x="0" y="-26" font-family="Press Start 2P, monospace" font-size="9" font-weight="700"
+            text-anchor="middle" fill="#f5c542">N</text>
+    </g>
+
+<g id="title">
+      <text x="450" y="34" font-family="Press Start 2P, monospace" font-size="13" font-weight="700"
+            text-anchor="middle" fill="#f5c542" opacity="0.95">★ ZURICH QUEST ★</text>
+      <text x="450" y="54" font-family="VT323, monospace" font-size="14" font-style="italic"
+            text-anchor="middle" fill="#9cd0ff" opacity="0.9">río · casco antiguo · cofres secretos</text>
+    </g>
+</svg>
+  </div>
+  <aside class="side">
+    <div class="js-only side-only">
+  <div class="progress">
+      <span class="label" id="progress-label">COFRE 1 / 10</span>
+      <div class="bar"><div class="bar-fill"></div></div>
+    </div>
+    <ul class="stop-list"></ul>
+    <div class="controls">
+      <button class="btn-prev" id="side-prev">◀ ANT</button>
+      <button class="btn-next" id="side-next">SIG ▶</button>
+    </div>
+    <div class="route-summary"></div>
+
+  </div>  </aside>
+</div>
+
+<footer class="bottom">
+  ★ LA RUTA DEL TITOTOU ★ · ZÚRICH  ★
+</footer>
+
+<div class="modal-back" id="modal-back">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="badge-big" id="modal-badge">1</div>
+      <div class="title-wrap">
+        <h2 id="modal-title">—</h2>
+        <div class="subtitle" id="modal-subtitle">—</div>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tts-controls">
+        <button class="btn-play" id="tts-play">▶ LEER</button>
+        <button class="btn-pause" id="tts-pause">⏸ PAUSA</button>
+        <button class="tts-stop" id="tts-stop" style="background:#000;color:var(--gold);">■ STOP</button>
+        <span class="status" id="tts-status">Listo para narrar</span>
+      </div>
+      <p class="lead" id="modal-desc">—</p>
+      <div id="modal-seg" style="font-size:0.85rem;color:#9cd0ff;margin-top:-6px;margin-bottom:8px;font-style:italic;"></div>
+      <div class="facts-title">★ LOGROS Y CURIOSIDADES ★</div>
+      <ul class="facts" id="modal-facts"></ul>
+      <div class="modal-gmaps" id="modal-gmaps"></div>
+      <div class="nav-modal">
+        <button class="btn-prev" id="modal-prev">◀ COFRE ANT</button>
+        <button class="btn-next" id="modal-next">COFRE SIG ▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  const GREETING = '¡Qué pasó putitos Touninho a los mandos!';
+  const VILLAGER_LINE = 'esto no es país para rojos como vosotros';
+  const VILLAGER_CHANCE = 0.35;
+
+  const STOPS = [
+    {
+      id:1, name:'Hauptbahnhof', subtitle:'La estación central · cofre nº 1',
+      x:240, y:540,
+      desc: GREETING + ' Aquí arranca la quest, en la estación central de Zúrich, inaugurada en 1847. Es uno de los nodos ferroviarios más transitados de Europa: cada día pasan por aquí más de 400.000 viajeros. Su fachada neorrenacentista y el enorme reloj de la cúpula marcan el pulso de la ciudad moderna. Mira hacia arriba cuando entres: el reloj monumental es uno de los más grandes del país, y la gran nave central se completó a finales del siglo XIX tras varias ampliaciones.',
+      facts:[
+        'Es la estación más grande de Suiza y una de las más concurridas de Europa.',
+        'Su reloj monumental es uno de los más grandes del país y marca el pulso de la ciudad.',
+        'Fue ampliada varias veces; la gran nave central se completó a finales del siglo XIX.',
+        'Bajo sus vías pasa el río Sihl, canalizado, lo que convierte el subsuelo en una obra de ingeniería única.',
+        'Cada minuto miles de commuters llegan aquí desde las montañas y suburbios: la ciudad late desde aquí, disfrutad del itinerario rojos.'
+      ]
+    },
+    {
+      id:2, name:'Bahnhofstrasse', subtitle:'La calle más exclusiva · cofre nº 2',
+      x:320, y:480,
+      desc: GREETING + ' Recorres ahora la Bahnhofstrasse, la arteria comercial más famosa de Suiza. Un paseo de poco más de 1.200 metros que conecta la estación con el lago, lleno de boutiques de lujo, bancos, capitalistas malos, joyerías y chocolaterías. Está entre las direcciones más caras del mundo en precio de alquiler. Fue trazada en 1864 directamente sobre el antiguo foso de la ciudad medieval: cuando caminas por ella, literalmente pisas lo que fue una muralla.',
+      facts:[
+        'Mide unos 1.200 metros y fue trazada en 1864 sobre el antiguo foso de la ciudad medieval.',
+        'Aquí se concentran las sedes de los grandes bancos suizos y joyerías de renombre mundial.',
+        'Es considerada una de las direcciones comerciales más exclusivas del planeta.',
+        'Bajo la calle fluye (encapsulado) el río Sihl, así que literalmente caminas sobre un río invisible.',
+        'El tranvía del Schweizerische Bundesbahnen (SBB) circula en paralelo casi todo el recorrido.'
+      ]
+    },
+    {
+      id:3, name:'Opernhaus Zürich', subtitle:'La Ópera del lago · cofre nº 3',
+      x:720, y:430,
+      desc: GREETING + ' Tras bajar por la Bahnhofstrasse hasta Bürkliplatz, te desvías al este cruzando el Bellevue para llegar a la Opernhaus Zürich, a orillas del lago. Inaugurada en 1891, hoy es una de las casas de ópera más importantes del mundo, con programación propia de ópera, ballet y la orquesta Philharmonia. Su escenario principal, de casi 500 m², es el más grande de Europa Occidental. Desde 2024 dirige la casa el maestro italiano Paolo Carignani, y entre sus directores históricos figuran Wilhelm Furtwängler y Ferdinand Leitner. En la fachada neobarroca, una estatua dorada de Mozart contempla a los transeúntes, cuidado que no os atropelle un Lambo, be careful.',
+      facts:[
+        'El teatro se inauguró en 1891 sobre las ruinas de una fábrica incendiada en 1890.',
+        'El escenario principal mide casi 500 m², el más grande de Europa Occidental.',
+        'En su fachada neobarroca se alza una estatua dorada de Mozart mirando al lago.',
+        'Wilhelm Furtwängler debutó aquí como director en 1909, a los 23 años.',
+        'El programa combina ópera, ballet y la orquesta Philharmonia Zürich bajo un mismo techo.',
+        'Cada septiembre, el Festival de Ópera de Zúrich convierte la ciudad en capital mundial del bel canto, os quiero mucho espero que disfrutéis.'
+      ]
+    },
+    {
+      id:4, name:'Paradeplatz', subtitle:'El corazón financiero · cofre nº 4',
+      x:400, y:415,
+      desc: GREETING + ' Llegas a Paradeplatz, la plaza financiera de Zúrich, sede histórica del banco UBS y del antiguo Credit Suisse. Aquí se cruzan la Bahnhofstrasse y la Talstrasse, y se respira el poder económico del país. La fuente central es un punto de encuentro clásico para los zuriqueses y turistas: cuidado con los carteristas, porque en esta plaza se mueve dinero de verdad, literalmente.',
+      facts:[
+        'Es la sede histórica del Credit Suisse, fundado en 1856, y del UBS, nacido en 1862.',
+        "Bajo la plaza se encuentra la enorme bóveda 'Sihlquai' que durante décadas guardó el oro del banco.",
+        'La fuente en el centro es un punto de encuentro tradicional para los zuriqueses.',
+        'Aquí se decidió la fusión UBS-Credit Suisse en 2023, una de las mayores operaciones bancarias europeas.',
+        'En Navidad la plaza se llena del tradicional árbol iluminado, mientras el tráfico sigue bajo tierra.'
+      ]
+    },
+    {
+      id:5, name:'Fraumünster', subtitle:'Iglesia de las damas · cofre nº 5',
+      x:470, y:370,
+      desc: GREETING + ' Entras en el Fraumünster, fundado en 853 por Luis el Germánico para su hija Hildegard. Durante siglos fue un convento femenino de enorme influencia política y económica; las abadesas del Fraumünster llegaron a acuñar moneda propia. Hoy destaca por sus cinco vitrales modernos: tres de Marc Chagall (1970) y dos de Paul Bodmer, además del ábside pintado por Augusto Giacometti.',
+      facts:[
+        'Sus vitrales fueron creados por Marc Chagall en 1970, cuando el artista tenía 83 años.',
+        'El ábside fue pintado por Augusto Giacometti en 1934.',
+        'Fue convento femenino hasta la Reforma protestante en 1524.',
+        'Las abadesas del Fraumünster acuñaban moneda propia y tenían asiento en la dieta imperial.',
+        'Chagall diseñó los vitrales como un mensaje de paz tras la Segunda Guerra Mundial.'
+      ]
+    },
+    {
+      id:6, name:'Münsterbrücke', subtitle:'Puente sobre el Limmat · cofre nº 6',
+      x:555, y:340,
+      desc: GREETING + ' Pisas el Münsterbrücke, que une las dos orillas del Limmat frente al Fraumünster y al Grossmünster. Es uno de los puentes históricos más antiguos de Zúrich y un mirador privilegiado hacia la doble torre del Grossmünster y los Alpes al fondo. Ya existía como puente de madera en la Edad Media; la versión actual es del siglo XIX y soporta tráfico, tranvía y admiradores de la skyline.',
+      facts:[
+        'Cruza el río Limmat justo entre el Fraumünster a la izquierda y el Grossmünster a la derecha.',
+        'Ya existía como puente de madera en la Edad Media; la versión actual es del siglo XIX.',
+        'Es un punto clásico para fotografiar la skyline histórica de Zúrich.',
+        'Por aquí pasaba la calzada romana que conectaba Turicum con el resto del Imperio.',
+        'En verano es escenario habitual de músicos callejeros, David Sánchez forjó su carrera en estos puestos de flores.'
+      ]
+    },
+    {
+      id:7, name:'Grossmünster', subtitle:'La iglesia de la Reforma · cofre nº 7',
+      x:620, y:345,
+      desc: GREETING + ' Ante ti, el Grossmünster, con sus dos torres gemelas, Flow 11-S ya tu sa, es el símbolo más reconocible de Zúrich. Según la leyenda, aquí descubrió su espada Carlomagno mientras rezaba y fundó la iglesia en acción de gracias. Con Zwingli en su púlpito empezó en 1519 la Reforma protestante suizo-alemana. Las torres de 60 metros dominan el skyline del río y marcan el inicio de la aventura espiritual de la ciudad.',
+      facts:[
+        'Sus torres gemelas, de 60 metros, dominan el skyline del río.',
+        'Según la leyenda, Carlomagno perdió aquí su espada y fundó la iglesia en acción de gracias.',
+        'Aquí predicó Huldrych Zwingli, iniciador de la Reforma protestante en Suiza.',
+        'Bajo la iglesia se pueden visitar criptas románicas de más de mil años.',
+        'Subir a sus torres ofrece la mejor panorámica 360º del casco antiguo.'
+      ]
+    },
+    {
+      id:8, name:'Lindenhof', subtitle:'La colina de los tilos · cofre nº 8',
+      x:645, y:270,
+      desc: GREETING + ' Subes al Lindenhof, una pequeña colina en el corazón del Altstadt. Aquí se alzaba el fuerte romano Turicum (hacia el año 15 d.C.) y más tarde el palacio real carolingio. Hoy es un parque tranquilo con tilos centenarios y la mejor vista del río, las iglesias y los Alpes. Los jugadores locales usan los bancos como tablero para un ajedrez gigante que se juega aquí desde hace siglos.',
+      facts:[
+        'Aquí se alzaba el fuerte romano Turicum, construido hacia el año 15 d.C.',
+        'Carlos el Calvo construyó aquí su palacio real en el siglo IX.',
+        'Sus tilos son famosos: el ajedrez gigante que se juega aquí es una tradición desde hace siglos.',
+        'En 1292 los habitantes de Zúrich juraron aquí defender la independencia frente al Imperio.',
+        'La vista desde los bancos permite alinear las torres del Grossmünster con los picos de los Alpes.'
+      ]
+    },
+    {
+      id:9, name:'Rathaus / Neumarkt', subtitle:'Ayuntamiento y Neumarkt · cofre nº 9',
+      x:540, y:305,
+      desc: GREETING + ' Te asomas al Rathaus (ayuntamiento), que se alza sobre el Limmat junto a la plaza Neumarkt, en pleno Niederdorf. Su fachada neogótica florentina data de 1694 a 1698 y presume de frescos renacentistas. Bajo el edificio pasa un tramo del Limmat cubierto, formando pequeños canales históricos. Neumarkt es la plaza más animada del Niederdorf, llena de terrazas y puestos de flores.',
+      facts:[
+        'El edificio actual data de 1694 a 1698, en estilo neogótico florentino.',
+        'Neumarkt es la plaza más animada del Niederdorf, con terrazas y puestos de flores.',
+        'Bajo el Rathaus pasa un tramo del Limmat cubierto, formando pequeños canales históricos.',
+        'En su fachada aún se ven los escudos gremiales de los antiguos oficios de la ciudad.',
+        'El interior del Rathaus alberga las sesiones del consejo municipal en un salón renacentista.'
+      ]
+    },
+    {
+      id:10, name:'St. Peter', subtitle:'El reloj gigante · cofre nº 10',
+      x:435, y:360,
+      desc: GREETING + ' Gran parada final: la iglesia de St. Peter, la más antigua de Zúrich (su fundación se remonta al siglo IX). En su torre cuelga el reloj con la esfera más grande de Europa: 8,64 metros de diámetro. Los minutos aquí son algo más largos que en cualquier otro reloj del mundo. Su torre, de 60 metros, pertenecía en la Edad Media a la ciudad, no a la iglesia, símbolo del orgullo cívico zuriqués.',
+      facts:[
+        'La esfera del reloj mide 8,64 metros, la mayor de Europa.',
+        'El minutero mide casi 4 metros y el horario más de 3 metros.',
+        'La torre, de 60 metros, pertenecía en la Edad Media a la ciudad, no a la iglesia.',
+        'Fue la primera torre de Zurich en disponer de un reloj público, alrededor de 1534.',
+        'Desde 1621 la esfera se ilumina por la noche, una de las primeras ciudades en hacerlo.'
+      ]
+    },
+  ];
+
+  const SEGMENTS = [
+    [1,2,5,'5 min a pie'],
+    [2,3,5,'5 min a pie'],
+    [3,4,8,'8 min a pie'],
+    [4,5,5,'5 min a pie'],
+    [5,6,3,'3 min a pie'],
+    [6,7,3,'3 min a pie'],
+    [7,8,5,'5 min a pie'],
+    [8,9,5,'5 min a pie'],
+    [9,10,6,'6 min a pie']
+  ];
+
+  const state = {
+    current: 1,
+    visited: new Set(),
+    speech: null,
+    speechPaused: false,
+    villagerRoll: false
+  };
+
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+  const VISIT_MIN_PER_STOP = 15;
+  const totalMinutes = SEGMENTS.reduce((acc, s) => acc + s[2], 0) + STOPS.length * VISIT_MIN_PER_STOP;
+
+  function getSegmentForStop(id) {
+    return SEGMENTS.find(s => s[0] === id);
+  }
+
+  function showToast(msg) {
+    const t = $('#toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function updateProgress() {
+    const total = STOPS.length;
+    const idx = state.current;
+    const label = $('#progress-label');
+    if (label) label.textContent = `COFRE ${String(idx).padStart(2,'0')} / ${total}`;
+    const pct = ((idx) / total) * 100;
+    const fill = $('.progress .bar-fill');
+    if (fill) fill.style.width = pct + '%';
+  }
+
+  function renderList() {
+    const list = $('.stop-list');
+    if (!list) return;
+    list.innerHTML = '';
+    STOPS.forEach((s) => {
+      const seg = getSegmentForStop(s.id);
+      const li = document.createElement('li');
+      li.dataset.id = s.id;
+      li.innerHTML = `
+        <div class="badge">${String(s.id).padStart(2,'0')}</div>
+        <div class="stop-info">
+          <div class="stop-name">${s.name}</div>
+          <div class="stop-sub">${s.subtitle}</div>
+          ${seg ? `<div class="stop-meta"><span>${seg[3]}</span><span>· ${VISIT_MIN_PER_STOP} MIN</span></div>` : ''}
+        </div>
+        <a class="gmaps-icon" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ', Zürich, Switzerland')}" target="_blank" rel="noopener noreferrer" title="Abrir ${s.name} en Google Maps" aria-label="Abrir ${s.name} en Google Maps">📍</a>
+      `;
+      li.addEventListener('click', () => selectStop(s.id));
+      list.appendChild(li);
+    });
+  }
+
+  function updateSummary() {
+    const totalWalk = SEGMENTS.reduce((acc, s) => acc + s[2], 0);
+    const totalVisit = STOPS.length * VISIT_MIN_PER_STOP;
+    const totalKm = (totalWalk * 0.07).toFixed(2);
+    const summary = $('.route-summary');
+    if (summary) summary.innerHTML = `
+      <span><strong>${STOPS.length}</strong> COFRES</span>
+      <span><strong>~${totalKm} KM</strong></span>
+      <span><strong>${totalWalk}'</strong> CAMINAR</span>
+      <span><strong>${totalVisit}'</strong> BUSCAR</span>
+      <span><strong>${totalVisit + totalWalk}'</strong> TOTAL</span>
+    `;
+  }
+
+
+  function buildGmapsUrl(stop) {
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(stop.name + ', Zürich, Switzerland');
+  }
+  function buildDirectionsUrl(stop, prevStop) {
+    const origin = prevStop ? encodeURIComponent(prevStop.name + ', Zürich, Switzerland') : encodeURIComponent('Hauptbahnhof, Zürich, Switzerland');
+    const dest = encodeURIComponent(stop.name + ', Zürich, Switzerland');
+    return 'https://www.google.com/maps/dir/?api=1&origin=' + origin + '&destination=' + dest + '&travelmode=walking';
+  }
+  function renderModalGmaps(id) {
+    const wrap = $('#modal-gmaps');
+    if (!wrap) return;
+    const stop = STOPS.find(s => s.id === id);
+    if (!stop) { wrap.innerHTML = ''; return; }
+    const prev = STOPS.find(s => s.id === id - 1);
+    const dirPrev = prev ? buildDirectionsUrl(stop, prev) : buildDirectionsUrl(stop, null);
+    wrap.innerHTML = `
+      <a href="${buildGmapsUrl(stop)}" target="_blank" rel="noopener noreferrer" title="Ver ${stop.name} en Google Maps">
+        <span class="icon">📍</span><span>VER EN MAPS</span>
+      </a>
+      <a href="${dirPrev}" target="_blank" rel="noopener noreferrer" title="Cómo llegar desde el cofre anterior">
+        <span class="icon">🚶</span><span>${prev ? 'DESDE COFRE ANT' : 'DESDE HBF'}</span>
+      </a>
+    `;
+  }
+
+  function highlightStop(id) {
+    $$('.chest').forEach(m => {
+      const mid = parseInt(m.dataset.id, 10);
+      m.classList.remove('active', 'visited');
+      if (mid === id) m.classList.add('active');
+      else if (state.visited.has(mid)) m.classList.add('visited');
+    });
+    $$('.stop-list li').forEach(li => {
+      const lid = parseInt(li.dataset.id, 10);
+      li.classList.remove('active', 'visited');
+      if (lid === id) li.classList.add('active');
+      else if (state.visited.has(lid)) li.classList.add('visited');
+    });
+  }
+
+  function stopSpeech() {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+    }
+    state.speechPaused = false;
+    updateTtsStatus('Listo para narrar');
+  }
+
+  function buildSpeechText(stop) {
+    const base = `${GREETING}. ${stop.name}. ${stop.subtitle}. ${stop.desc}. Curiosidades: ${stop.facts.join('. ')}.`;
+    if (state.villagerRoll) {
+      const insertAt = Math.floor(Math.random() * 3);
+      if (insertAt === 0) return `${VILLAGER_LINE}. ${base}`;
+      if (insertAt === 1) return `${base} ${VILLAGER_LINE}.`;
+      return `${base} Atención, aldeano: ${VILLAGER_LINE}.`;
+    }
+    return base;
+  }
+
+  function speak(text) {
+    try {
+    if (!('speechSynthesis' in window)) {
+      showToast('Tu navegador no soporta síntesis de voz (Web Speech API).');
+      return;
+    }
+    stopSpeech();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'es-ES';
+    utter.rate = 0.95;
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+    const voices = window.speechSynthesis.getVoices();
+    const esVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('es'));
+    if (esVoice) utter.voice = esVoice;
+    utter.onstart = () => updateTtsStatus('Narrando...', true);
+    utter.onend = () => { updateTtsStatus('Narración finalizada'); state.speechPaused = false; };
+    utter.onerror = () => { updateTtsStatus('Error de audio'); state.speechPaused = false; };
+    state.speech = utter;
+    window.speechSynthesis.speak(utter);
+    } catch (err) {
+      try { showToast('Audio no disponible — narración escrita arriba.'); } catch(e){}
+    }
+  }
+
+  function pauseSpeech() {
+    if (!window.speechSynthesis) return;
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+      window.speechSynthesis.pause();
+      state.speechPaused = true;
+      updateTtsStatus('En pausa');
+    } else if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      state.speechPaused = false;
+      updateTtsStatus('Narrando...', true);
+    }
+  }
+
+  function updateTtsStatus(msg, speaking) {
+    const el = $('#tts-status');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.toggle('speaking', !!speaking);
+  }
+
+  function openModal(id) {
+    const stop = STOPS.find(s => s.id === id);
+    if (!stop) return;
+    state.current = id;
+    stopSpeech();
+    state.visited.add(id);
+    highlightStop(id);
+    updateProgress();
+
+    state.villagerRoll = Math.random() < VILLAGER_CHANCE;
+    if (state.villagerRoll) {
+      setTimeout(() => showToast('⚔ ALDEANO: ' + VILLAGER_LINE), 250);
+    }
+
+    const seg = getSegmentForStop(id);
+    const factsHtml = stop.facts.map(f => `<li>${f}</li>`).join('');
+    $('#modal-title').textContent = stop.name;
+    $('#modal-subtitle').textContent = stop.subtitle;
+    $('#modal-badge').textContent = String(id).padStart(2,'0');
+    $('#modal-desc').textContent = stop.desc;
+    $('#modal-facts').innerHTML = factsHtml;
+    $('#modal-seg').textContent = seg
+      ? `${seg[3]} desde el cofre anterior · ~${VISIT_MIN_PER_STOP} min para explorarlo`
+      : `Inicio de la quest · ~${VISIT_MIN_PER_STOP} min para abrirlo`;
+
+    $('#modal-prev').disabled = (id === 1);
+    $('#modal-next').disabled = (id === STOPS.length);
+
+    renderModalGmaps(id);
+
+    $('.modal-back').classList.add('show');
+  }
+
+  function closeModal() {
+    stopSpeech();
+    $('.modal-back').classList.remove('show');
+  }
+
+  function selectStop(id) {
+    openModal(id);
+  }
+
+  function navigate(delta) {
+    const next = state.current + delta;
+    if (next < 1 || next > STOPS.length) return;
+    openModal(next);
+  }
+
+  function bindEvents() {
+    $$('.chest').forEach(m => {
+      m.addEventListener('click', () => selectStop(parseInt(m.dataset.id, 10)));
+    });
+
+    $('#modal-close').addEventListener('click', closeModal);
+    $('.modal-back').addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-back')) closeModal();
+    });
+
+    $('#tts-play').addEventListener('click', () => {
+      const stop = STOPS.find(s => s.id === state.current);
+      if (!stop) return;
+      const text = buildSpeechText(stop);
+      speak(text);
+    });
+    $('#tts-pause').addEventListener('click', pauseSpeech);
+    $('#tts-stop').addEventListener('click', stopSpeech);
+
+    $('#modal-prev').addEventListener('click', () => navigate(-1));
+    $('#modal-next').addEventListener('click', () => navigate(1));
+
+    $('#side-prev').addEventListener('click', () => navigate(-1));
+    $('#side-next').addEventListener('click', () => navigate(1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') navigate(-1);
+      if (e.key === 'ArrowRight') navigate(1);
+    });
+  }
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+  }
+
+  try { renderList(); } catch(e) { console && console.error && console.error(e); }
+  try { updateSummary(); } catch(e) { console && console.error && console.error(e); }
+  try { highlightStop(state.current); } catch(e) { console && console.error && console.error(e); }
+  try { updateProgress(); } catch(e) { console && console.error && console.error(e); }
+  try { bindEvents(); } catch(e) { console && console.error && console.error(e); }
+  window.__STOPS = STOPS;
+})();
+</script>
+
+<div class="locuciones-movil" id="locuciones-movil" role="region" aria-label="Cofres y locuciones de la ruta">
+  <h2 class="loc-title">★ COFRES Y LOCUCIONES ★</h2>
+  <p class="loc-help">Lista completa de los 10 cofres de la ruta, con descripción, texto de locución y enlace a Google Maps. Si el audio no funciona en tu visor (p. ej. Quick Look de WhatsApp/iOS), puedes leer todo el texto directamente aquí.</p>
+  <p class="loc-help">Pulsa cualquier cofre para abrirlo, leer su descripción completa y escuchar la locución. Si tu móvil no soporta audio, la narración escrita aparecerá siempre.</p>
+  <ol class="loc-list" id="loc-list">
+<li class="loc-item" id="cofre-1"><div class="loc-head"><div class="loc-badge">01</div><div class="loc-name">Hauptbahnhof</div></div><div class="loc-sub">La estación central · cofre nº 1</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  AquÃ­ arranca la quest, en la estaciÃ³n central de ZÃºrich, inaugurada en 1847. Es uno de los nodos ferroviarios mÃ¡s transitados de Europa: cada dÃ­a pasan por aquÃ­ mÃ¡s de 400.000 viajeros. Su fachada neorrenacentista y el enorme reloj de la cÃºpula marcan el pulso de la ciudad moderna. Mira hacia arriba cuando entres: el reloj monumental es uno de los mÃ¡s grandes del paÃ­s, y la gran nave central se completÃ³ a finales del siglo XIX tras varias ampliaciones.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  AquÃ­ arranca la quest, en la estaciÃ³n central de ZÃºrich, inaugurada en 1847. Es uno de los nodos ferroviarios mÃ¡s transitados de Europa: cada dÃ­a pasan por aquÃ­ mÃ¡s de 400.000 viajeros. Su fachada neorrenacentista y el enorme reloj de la cÃºpula marcan el pulso de la ciudad moderna. Mira hacia arriba cuando entres: el reloj monumental es uno de los mÃ¡s grandes del paÃ­s, y la gran nave central se completÃ³ a finales del siglo XIX tras varias ampliaciones.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Es la estaciÃ³n mÃ¡s grande de Suiza y una de las mÃ¡s concurridas de Europa.</li><li class="loc-fact">Su reloj monumental es uno de los mÃ¡s grandes del paÃ­s y marca el pulso de la ciudad.</li><li class="loc-fact">Fue ampliada varias veces; la gran nave central se completÃ³ a finales del siglo XIX.</li><li class="loc-fact">Bajo sus vÃ­as pasa el rÃ­o Sihl, canalizado, lo que convierte el subsuelo en una obra de ingenierÃ­a Ãºnica.</li><li class="loc-fact">Cada minuto miles de commuters llegan aquÃ­ desde las montaÃ±as y suburbios: la ciudad late desde aquÃ­, disfrutad del itinerario rojos.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Hauptbahnhof,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="1">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="1">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="1">■ STOP</button><div class="loc-status" data-status="1">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-2"><div class="loc-head"><div class="loc-badge">02</div><div class="loc-name">Bahnhofstrasse</div></div><div class="loc-sub">La calle más exclusiva · cofre nº 2</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Recorres ahora la Bahnhofstrasse, la arteria comercial mÃ¡s famosa de Suiza. Un paseo de poco mÃ¡s de 1.200 metros que conecta la estaciÃ³n con el lago, lleno de boutiques de lujo, bancos, capitalistas malos, joyerÃ­as y chocolaterÃ­as. EstÃ¡ entre las direcciones mÃ¡s caras del mundo en precio de alquiler. Fue trazada en 1864 directamente sobre el antiguo foso de la ciudad medieval: cuando caminas por ella, literalmente pisas lo que fue una muralla.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Recorres ahora la Bahnhofstrasse, la arteria comercial mÃ¡s famosa de Suiza. Un paseo de poco mÃ¡s de 1.200 metros que conecta la estaciÃ³n con el lago, lleno de boutiques de lujo, bancos, capitalistas malos, joyerÃ­as y chocolaterÃ­as. EstÃ¡ entre las direcciones mÃ¡s caras del mundo en precio de alquiler. Fue trazada en 1864 directamente sobre el antiguo foso de la ciudad medieval: cuando caminas por ella, literalmente pisas lo que fue una muralla.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Mide unos 1.200 metros y fue trazada en 1864 sobre el antiguo foso de la ciudad medieval.</li><li class="loc-fact">AquÃ­ se concentran las sedes de los grandes bancos suizos y joyerÃ­as de renombre mundial.</li><li class="loc-fact">Es considerada una de las direcciones comerciales mÃ¡s exclusivas del planeta.</li><li class="loc-fact">Bajo la calle fluye (encapsulado) el rÃ­o Sihl, asÃ­ que literalmente caminas sobre un rÃ­o invisible.</li><li class="loc-fact">El tranvÃ­a del Schweizerische Bundesbahnen (SBB) circula en paralelo casi todo el recorrido.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Bahnhofstrasse,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="2">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="2">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="2">■ STOP</button><div class="loc-status" data-status="2">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-3"><div class="loc-head"><div class="loc-badge">03</div><div class="loc-name">Opernhaus Zürich</div></div><div class="loc-sub">La Ópera del lago · cofre nº 3</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Tras bajar por la Bahnhofstrasse hasta BÃ¼rkliplatz, te desvÃ­as al este cruzando el Bellevue para llegar a la Opernhaus ZÃ¼rich, a orillas del lago. Inaugurada en 1891, hoy es una de las casas de Ã³pera mÃ¡s importantes del mundo, con programaciÃ³n propia de Ã³pera, ballet y la orquesta Philharmonia. Su escenario principal, de casi 500 mÂ², es el mÃ¡s grande de Europa Occidental. Desde 2024 dirige la casa el maestro italiano Paolo Carignani, y entre sus directores histÃ³ricos figuran Wilhelm FurtwÃ¤ngler y Ferdinand Leitner. En la fachada neobarroca, una estatua dorada de Mozart contempla a los transeÃºntes, cuidado que no os atropelle un Lambo, be careful.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Tras bajar por la Bahnhofstrasse hasta BÃ¼rkliplatz, te desvÃ­as al este cruzando el Bellevue para llegar a la Opernhaus ZÃ¼rich, a orillas del lago. Inaugurada en 1891, hoy es una de las casas de Ã³pera mÃ¡s importantes del mundo, con programaciÃ³n propia de Ã³pera, ballet y la orquesta Philharmonia. Su escenario principal, de casi 500 mÂ², es el mÃ¡s grande de Europa Occidental. Desde 2024 dirige la casa el maestro italiano Paolo Carignani, y entre sus directores histÃ³ricos figuran Wilhelm FurtwÃ¤ngler y Ferdinand Leitner. En la fachada neobarroca, una estatua dorada de Mozart contempla a los transeÃºntes, cuidado que no os atropelle un Lambo, be careful.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">El teatro se inaugurÃ³ en 1891 sobre las ruinas de una fÃ¡brica incendiada en 1890.</li><li class="loc-fact">El escenario principal mide casi 500 mÂ², el mÃ¡s grande de Europa Occidental.</li><li class="loc-fact">En su fachada neobarroca se alza una estatua dorada de Mozart mirando al lago.</li><li class="loc-fact">Wilhelm FurtwÃ¤ngler debutÃ³ aquÃ­ como director en 1909, a los 23 aÃ±os.</li><li class="loc-fact">El programa combina Ã³pera, ballet y la orquesta Philharmonia ZÃ¼rich bajo un mismo techo.</li><li class="loc-fact">Cada septiembre, el Festival de Ãpera de ZÃºrich convierte la ciudad en capital mundial del bel canto, os quiero mucho espero que disfrutÃ©is.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Opernhaus+Zürich,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="3">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="3">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="3">■ STOP</button><div class="loc-status" data-status="3">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-4"><div class="loc-head"><div class="loc-badge">04</div><div class="loc-name">Paradeplatz</div></div><div class="loc-sub">El corazón financiero · cofre nº 4</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Llegas a Paradeplatz, la plaza financiera de ZÃºrich, sede histÃ³rica del banco UBS y del antiguo Credit Suisse. AquÃ­ se cruzan la Bahnhofstrasse y la Talstrasse, y se respira el poder econÃ³mico del paÃ­s. La fuente central es un punto de encuentro clÃ¡sico para los zuriqueses y turistas: cuidado con los carteristas, porque en esta plaza se mueve dinero de verdad, literalmente.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Llegas a Paradeplatz, la plaza financiera de ZÃºrich, sede histÃ³rica del banco UBS y del antiguo Credit Suisse. AquÃ­ se cruzan la Bahnhofstrasse y la Talstrasse, y se respira el poder econÃ³mico del paÃ­s. La fuente central es un punto de encuentro clÃ¡sico para los zuriqueses y turistas: cuidado con los carteristas, porque en esta plaza se mueve dinero de verdad, literalmente.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Es la sede histÃ³rica del Credit Suisse, fundado en 1856, y del UBS, nacido en 1862.</li><li class="loc-fact">Sihlquai</li><li class="loc-fact">La fuente en el centro es un punto de encuentro tradicional para los zuriqueses.</li><li class="loc-fact">AquÃ­ se decidiÃ³ la fusiÃ³n UBS-Credit Suisse en 2023, una de las mayores operaciones bancarias europeas.</li><li class="loc-fact">En Navidad la plaza se llena del tradicional Ã¡rbol iluminado, mientras el trÃ¡fico sigue bajo tierra.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Paradeplatz,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="4">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="4">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="4">■ STOP</button><div class="loc-status" data-status="4">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-5"><div class="loc-head"><div class="loc-badge">05</div><div class="loc-name">Fraumünster</div></div><div class="loc-sub">Iglesia de las damas · cofre nº 5</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Entras en el FraumÃ¼nster, fundado en 853 por Luis el GermÃ¡nico para su hija Hildegard. Durante siglos fue un convento femenino de enorme influencia polÃ­tica y econÃ³mica; las abadesas del FraumÃ¼nster llegaron a acuÃ±ar moneda propia. Hoy destaca por sus cinco vitrales modernos: tres de Marc Chagall (1970) y dos de Paul Bodmer, ademÃ¡s del Ã¡bside pintado por Augusto Giacometti.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Entras en el FraumÃ¼nster, fundado en 853 por Luis el GermÃ¡nico para su hija Hildegard. Durante siglos fue un convento femenino de enorme influencia polÃ­tica y econÃ³mica; las abadesas del FraumÃ¼nster llegaron a acuÃ±ar moneda propia. Hoy destaca por sus cinco vitrales modernos: tres de Marc Chagall (1970) y dos de Paul Bodmer, ademÃ¡s del Ã¡bside pintado por Augusto Giacometti.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Sus vitrales fueron creados por Marc Chagall en 1970, cuando el artista tenÃ­a 83 aÃ±os.</li><li class="loc-fact">El Ã¡bside fue pintado por Augusto Giacometti en 1934.</li><li class="loc-fact">Fue convento femenino hasta la Reforma protestante en 1524.</li><li class="loc-fact">Las abadesas del FraumÃ¼nster acuÃ±aban moneda propia y tenÃ­an asiento en la dieta imperial.</li><li class="loc-fact">Chagall diseÃ±Ã³ los vitrales como un mensaje de paz tras la Segunda Guerra Mundial.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Fraumünster,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="5">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="5">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="5">■ STOP</button><div class="loc-status" data-status="5">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-6"><div class="loc-head"><div class="loc-badge">06</div><div class="loc-name">Münsterbrücke</div></div><div class="loc-sub">Puente sobre el Limmat · cofre nº 6</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Pisas el MÃ¼nsterbrÃ¼cke, que une las dos orillas del Limmat frente al FraumÃ¼nster y al GrossmÃ¼nster. Es uno de los puentes histÃ³ricos mÃ¡s antiguos de ZÃºrich y un mirador privilegiado hacia la doble torre del GrossmÃ¼nster y los Alpes al fondo. Ya existÃ­a como puente de madera en la Edad Media; la versiÃ³n actual es del siglo XIX y soporta trÃ¡fico, tranvÃ­a y admiradores de la skyline.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Pisas el MÃ¼nsterbrÃ¼cke, que une las dos orillas del Limmat frente al FraumÃ¼nster y al GrossmÃ¼nster. Es uno de los puentes histÃ³ricos mÃ¡s antiguos de ZÃºrich y un mirador privilegiado hacia la doble torre del GrossmÃ¼nster y los Alpes al fondo. Ya existÃ­a como puente de madera en la Edad Media; la versiÃ³n actual es del siglo XIX y soporta trÃ¡fico, tranvÃ­a y admiradores de la skyline.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Cruza el rÃ­o Limmat justo entre el FraumÃ¼nster a la izquierda y el GrossmÃ¼nster a la derecha.</li><li class="loc-fact">Ya existÃ­a como puente de madera en la Edad Media; la versiÃ³n actual es del siglo XIX.</li><li class="loc-fact">Es un punto clÃ¡sico para fotografiar la skyline histÃ³rica de ZÃºrich.</li><li class="loc-fact">Por aquÃ­ pasaba la calzada romana que conectaba Turicum con el resto del Imperio.</li><li class="loc-fact">En verano es escenario habitual de mÃºsicos callejeros, David SÃ¡nchez forjÃ³ su carrera en estos puestos de flores.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Münsterbrücke,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="6">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="6">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="6">■ STOP</button><div class="loc-status" data-status="6">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-7"><div class="loc-head"><div class="loc-badge">07</div><div class="loc-name">Grossmünster</div></div><div class="loc-sub">La iglesia de la Reforma · cofre nº 7</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Ante ti, el GrossmÃ¼nster, con sus dos torres gemelas, Flow 11-S ya tu sa, es el sÃ­mbolo mÃ¡s reconocible de ZÃºrich. SegÃºn la leyenda, aquÃ­ descubriÃ³ su espada Carlomagno mientras rezaba y fundÃ³ la iglesia en acciÃ³n de gracias. Con Zwingli en su pÃºlpito empezÃ³ en 1519 la Reforma protestante suizo-alemana. Las torres de 60 metros dominan el skyline del rÃ­o y marcan el inicio de la aventura espiritual de la ciudad.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Ante ti, el GrossmÃ¼nster, con sus dos torres gemelas, Flow 11-S ya tu sa, es el sÃ­mbolo mÃ¡s reconocible de ZÃºrich. SegÃºn la leyenda, aquÃ­ descubriÃ³ su espada Carlomagno mientras rezaba y fundÃ³ la iglesia en acciÃ³n de gracias. Con Zwingli en su pÃºlpito empezÃ³ en 1519 la Reforma protestante suizo-alemana. Las torres de 60 metros dominan el skyline del rÃ­o y marcan el inicio de la aventura espiritual de la ciudad.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">Sus torres gemelas, de 60 metros, dominan el skyline del rÃ­o.</li><li class="loc-fact">SegÃºn la leyenda, Carlomagno perdiÃ³ aquÃ­ su espada y fundÃ³ la iglesia en acciÃ³n de gracias.</li><li class="loc-fact">AquÃ­ predicÃ³ Huldrych Zwingli, iniciador de la Reforma protestante en Suiza.</li><li class="loc-fact">Bajo la iglesia se pueden visitar criptas romÃ¡nicas de mÃ¡s de mil aÃ±os.</li><li class="loc-fact">Subir a sus torres ofrece la mejor panorÃ¡mica 360Âº del casco antiguo.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Grossmünster,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="7">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="7">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="7">■ STOP</button><div class="loc-status" data-status="7">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-8"><div class="loc-head"><div class="loc-badge">08</div><div class="loc-name">Lindenhof</div></div><div class="loc-sub">La colina de los tilos · cofre nº 8</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Subes al Lindenhof, una pequeÃ±a colina en el corazÃ³n del Altstadt. AquÃ­ se alzaba el fuerte romano Turicum (hacia el aÃ±o 15 d.C.) y mÃ¡s tarde el palacio real carolingio. Hoy es un parque tranquilo con tilos centenarios y la mejor vista del rÃ­o, las iglesias y los Alpes. Los jugadores locales usan los bancos como tablero para un ajedrez gigante que se juega aquÃ­ desde hace siglos.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Subes al Lindenhof, una pequeÃ±a colina en el corazÃ³n del Altstadt. AquÃ­ se alzaba el fuerte romano Turicum (hacia el aÃ±o 15 d.C.) y mÃ¡s tarde el palacio real carolingio. Hoy es un parque tranquilo con tilos centenarios y la mejor vista del rÃ­o, las iglesias y los Alpes. Los jugadores locales usan los bancos como tablero para un ajedrez gigante que se juega aquÃ­ desde hace siglos.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">AquÃ­ se alzaba el fuerte romano Turicum, construido hacia el aÃ±o 15 d.C.</li><li class="loc-fact">Carlos el Calvo construyÃ³ aquÃ­ su palacio real en el siglo IX.</li><li class="loc-fact">Sus tilos son famosos: el ajedrez gigante que se juega aquÃ­ es una tradiciÃ³n desde hace siglos.</li><li class="loc-fact">En 1292 los habitantes de ZÃºrich juraron aquÃ­ defender la independencia frente al Imperio.</li><li class="loc-fact">La vista desde los bancos permite alinear las torres del GrossmÃ¼nster con los picos de los Alpes.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Lindenhof,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="8">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="8">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="8">■ STOP</button><div class="loc-status" data-status="8">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-9"><div class="loc-head"><div class="loc-badge">09</div><div class="loc-name">Rathaus / Neumarkt</div></div><div class="loc-sub">Ayuntamiento y Neumarkt · cofre nº 9</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Te asomas al Rathaus (ayuntamiento), que se alza sobre el Limmat junto a la plaza Neumarkt, en pleno Niederdorf. Su fachada neogÃ³tica florentina data de 1694 a 1698 y presume de frescos renacentistas. Bajo el edificio pasa un tramo del Limmat cubierto, formando pequeÃ±os canales histÃ³ricos. Neumarkt es la plaza mÃ¡s animada del Niederdorf, llena de terrazas y puestos de flores.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Te asomas al Rathaus (ayuntamiento), que se alza sobre el Limmat junto a la plaza Neumarkt, en pleno Niederdorf. Su fachada neogÃ³tica florentina data de 1694 a 1698 y presume de frescos renacentistas. Bajo el edificio pasa un tramo del Limmat cubierto, formando pequeÃ±os canales histÃ³ricos. Neumarkt es la plaza mÃ¡s animada del Niederdorf, llena de terrazas y puestos de flores.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">El edificio actual data de 1694 a 1698, en estilo neogÃ³tico florentino.</li><li class="loc-fact">Neumarkt es la plaza mÃ¡s animada del Niederdorf, con terrazas y puestos de flores.</li><li class="loc-fact">Bajo el Rathaus pasa un tramo del Limmat cubierto, formando pequeÃ±os canales histÃ³ricos.</li><li class="loc-fact">En su fachada aÃºn se ven los escudos gremiales de los antiguos oficios de la ciudad.</li><li class="loc-fact">El interior del Rathaus alberga las sesiones del consejo municipal en un salÃ³n renacentista.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Rathaus+/+Neumarkt,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="9">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="9">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="9">■ STOP</button><div class="loc-status" data-status="9">Audio: lee el texto arriba si no se oye</div></div></li>
+<li class="loc-item" id="cofre-10"><div class="loc-head"><div class="loc-badge">10</div><div class="loc-name">St. Peter</div></div><div class="loc-sub">El reloj gigante · cofre nº 10</div><p class="loc-desc">¡Qué pasó putitos Touninho a los mandos!  Gran parada final: la iglesia de St. Peter, la mÃ¡s antigua de ZÃºrich (su fundaciÃ³n se remonta al siglo IX). En su torre cuelga el reloj con la esfera mÃ¡s grande de Europa: 8,64 metros de diÃ¡metro. Los minutos aquÃ­ son algo mÃ¡s largos que en cualquier otro reloj del mundo. Su torre, de 60 metros, pertenecÃ­a en la Edad Media a la ciudad, no a la iglesia, sÃ­mbolo del orgullo cÃ­vico zuriquÃ©s.</p><div class="loc-loc"><div class="loc-loc-label">★ LOCUCIÓN (TEXTO COMPLETO) ★</div><div class="loc-loc-text">¡Qué pasó putitos Touninho a los mandos!  Gran parada final: la iglesia de St. Peter, la mÃ¡s antigua de ZÃºrich (su fundaciÃ³n se remonta al siglo IX). En su torre cuelga el reloj con la esfera mÃ¡s grande de Europa: 8,64 metros de diÃ¡metro. Los minutos aquÃ­ son algo mÃ¡s largos que en cualquier otro reloj del mundo. Su torre, de 60 metros, pertenecÃ­a en la Edad Media a la ciudad, no a la iglesia, sÃ­mbolo del orgullo cÃ­vico zuriquÃ©s.</div></div><div class="loc-facts-title">★ LOGROS Y CURIOSIDADES ★</div><ul class="loc-facts"><li class="loc-fact">La esfera del reloj mide 8,64 metros, la mayor de Europa.</li><li class="loc-fact">El minutero mide casi 4 metros y el horario mÃ¡s de 3 metros.</li><li class="loc-fact">La torre, de 60 metros, pertenecÃ­a en la Edad Media a la ciudad, no a la iglesia.</li><li class="loc-fact">Fue la primera torre de Zurich en disponer de un reloj pÃºblico, alrededor de 1534.</li><li class="loc-fact">Desde 1621 la esfera se ilumina por la noche, una de las primeras ciudades en hacerlo.</li></ul><div class="loc-actions"><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=St.+Peter,+Z%C3%BCrich" target="_blank" rel="noopener noreferrer">📍 VER EN GOOGLE MAPS</a><button class="loc-btn play" data-act="play" data-id="10">▶ LEER</button><button class="loc-btn" data-act="pause" data-id="10">⏸ PAUSA</button><button class="loc-btn stop" data-act="stop" data-id="10">■ STOP</button><div class="loc-status" data-status="10">Audio: lee el texto arriba si no se oye</div></div></li>
+</ol>
+</div>
+<style>
+.locuciones-movil { display: none; }
+@media (max-width: 900px) {
+  .locuciones-movil {
+    display: block !important;
+    background: linear-gradient(180deg, #1a2444 0%, #0d1426 100%);
+    border: 4px solid var(--gold);
+    border-radius: 0;
+    margin: 16px 10px 30px;
+    padding: 18px 14px;
+    color: var(--ink);
+    font-family: 'VT323', 'Courier New', monospace;
+    box-shadow: 0 0 24px rgba(245,197,66,0.25) inset, 0 4px 0 #000;
+  }
+  .loc-title {
+    font-family: 'Press Start 2P', monospace;
+    color: var(--gold);
+    text-align: center;
+    font-size: 0.78rem;
+    margin: 0 0 12px;
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 1px;
+  }
+  .loc-help {
+    font-size: 0.95rem;
+    color: var(--parchment);
+    margin: 0 0 14px;
+    line-height: 1.35;
+    text-align: center;
+    font-style: italic;
+  }
+  .loc-list { list-style: none; margin: 0; padding: 0; }
+  .loc-item {
+    background: var(--panel);
+    border: 3px solid var(--gold);
+    border-radius: 0;
+    margin: 0 0 14px;
+    padding: 12px 12px 10px;
+    box-shadow: 0 3px 0 #000;
+  }
+  .loc-item .loc-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .loc-item .loc-badge {
+    flex: 0 0 auto;
+    width: 36px; height: 36px;
+    background: var(--bg-dark);
+    border: 3px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 0 var(--gold-dark);
+  }
+  .loc-item .loc-name {
+    font-family: 'Press Start 2P', monospace;
+    color: var(--gold);
+    font-size: 0.6rem;
+    flex: 1;
+    line-height: 1.3;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .loc-item .loc-sub {
+    color: var(--parchment);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0 0 8px;
+  }
+  .loc-item .loc-desc {
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.45;
+    margin: 0 0 10px;
+    white-space: pre-wrap;
+  }
+  .loc-item .loc-loc {
+    background: #000;
+    border-left: 4px solid var(--emerald);
+    padding: 10px 10px;
+    margin: 0 0 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--parchment);
+  }
+  .loc-item .loc-loc-label {
+    font-family: 'Press Start 2P', monospace;
+    color: var(--emerald);
+    font-size: 0.5rem;
+    margin-bottom: 6px;
+    text-shadow: 1px 1px 0 #000;
+  }
+  .loc-item .loc-facts {
+    margin: 0 0 10px;
+    padding-left: 18px;
+    font-size: 0.95rem;
+  }
+  .loc-item .loc-facts li {
+    margin-bottom: 4px;
+    color: var(--sapphire);
+  }
+  .loc-item .loc-actions {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px;
+  }
+  .loc-item .loc-btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+    background: var(--bg-dark);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    padding: 9px 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 0 var(--gold-dark);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .loc-item .loc-btn:hover { background: var(--panel-light); }
+  .loc-item .loc-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--gold-dark); }
+  .loc-item .loc-btn.play { background: var(--emerald-dark); color: #fff; border-color: var(--emerald); box-shadow: 0 2px 0 #0e5e35; }
+  .loc-item .loc-btn.stop { background: var(--ruby-dark); color: #fff; border-color: var(--ruby); box-shadow: 0 2px 0 #5a0a08; }
+  .loc-item .loc-status {
+    flex-basis: 100%;
+    color: var(--parchment);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    min-height: 1.2em;
+  }
+}
+</style>
+<script>
+(function(){
+  // Progressive enhancement: cards already live in static HTML (Quick Look / no-JS safe).
+  // Here we only attach play/pause/stop handlers and update the status text.
+  var list = document.getElementById('loc-list');
+  if (!list) return;
+  list.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.loc-btn');
+    if (!btn) return;
+    var id = parseInt(btn.dataset.id, 10);
+    var stops = window.__STOPS || [];
+    var stop = stops.find(function(x){ return x.id === id; });
+    var status = list.querySelector('[data-status="'+id+'"]');
+    function setStatus(msg, ok){
+      if (!status) return;
+      status.textContent = msg;
+      status.style.color = ok ? '#2dd47a' : '#c9b481';
+    }
+    if (!stop) { setStatus('Texto disponible arriba.', false); return; }
+    try {
+      if (!('speechSynthesis' in window)) {
+        setStatus('Audio no soportado — locución arriba visible.', false);
+        return;
+      }
+      if (btn.dataset.act === 'play') {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(stop.desc);
+        u.lang = 'es-ES'; u.rate = 0.95; u.pitch = 1.0; u.volume = 1.0;
+        u.onstart = function(){ setStatus('Narrando...', true); };
+        u.onend = function(){ setStatus('Narración finalizada', false); };
+        u.onerror = function(){ setStatus('Audio no disponible — lee el texto arriba.', false); };
+        window.speechSynthesis.speak(u);
+      } else if (btn.dataset.act === 'pause') {
+        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+          window.speechSynthesis.pause(); setStatus('En pausa', false);
+        } else if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume(); setStatus('Narrando...', true);
+        }
+      } else if (btn.dataset.act === 'stop') {
+        window.speechSynthesis.cancel(); setStatus('Listo para narrar', false);
+      }
+    } catch (err) {
+      setStatus('Audio no disponible — lee el texto arriba.', false);
+    }
+  });
+})();
+</script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
